@@ -105,8 +105,8 @@ export default function Contacto() {
 
       <section className="mt-12 text-gray-700">
         <h3 className="font-semibold mb-2">Contacto rápido</h3>
-        <p>WhatsApp: <a href="https://wa.me/51987654321" className="text-blue-600 underline">+51 987 654 321</a></p>
-        <p>Dirección: Calle Falsa 123, Lima, Perú</p>
+        <p>WhatsApp: <a href="https://wa.me/51935565755" className="text-blue-600 underline">+51 935 565 755</a></p>
+        <p>Dirección: Urbanización Palomino, Lima, Perú</p>
       </section>
     </main>
   );

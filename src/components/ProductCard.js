@@ -6,13 +6,18 @@ export default function ProductCard({ product, onView }) {
 
   return (
     <div className="bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center space-y-4 relative">
-      {isOutOfStock && (
-        <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded">
-          Agotado
-        </div>
-      )}
-
-      <img src={product.image} alt={product.name} className="w-40 h-auto object-contain" />
+      <div className="relative w-40 h-40"> {/* Contenedor relativo para la imagen y el indicador */}
+        {isOutOfStock && (
+          <div className="absolute top-1 right-1 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded shadow-md">
+            Agotado
+          </div>
+        )}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-contain" // Asegura dimensiones consistentes y muestra toda la imagen
+        />
+      </div>
       <h3 className="font-semibold text-lg">{product.name}</h3>
 
       {hasDiscount ? (

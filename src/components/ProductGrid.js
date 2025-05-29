@@ -10,20 +10,20 @@ const sampleProducts = [
     name: "iPhone 14 Pro",
     color: "Morado",
     almacenamiento: "256 Gb",
-    price: 2700,
-    discountPrice: 2500,
-    stock: 5,
-    image: "/iphone14pro.png",
+    price: 2800,
+    discountPrice: 2700,
+    stock: 1,
+    image: "/iPhoneMor.png",
   },
   {
     id: 2,
     name: "iPhone 14 Pro",
     color: "Plateado",
     almacenamiento: "256 Gb",
-    price: 2900,
-    discountPrice: null,
+    price: 3000,
+    discountPrice: 2900,
     stock: 0,
-    image: "/iphone14pro.png",
+    image: "/iPhonePla.png",
   },
   {
     id: 3,
@@ -32,8 +32,8 @@ const sampleProducts = [
     almacenamiento: "256 Gb",
     price: 3300,
     discountPrice: null,
-    stock: 10,
-    image: "/iphone14pro.png",
+    stock: 1,
+    image: "/iPhoneNeg.png",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function ProductGrid() {
     <>
       <section
         id="catalogo"
-        className="max-w-6xl mx-auto px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+        className="max-w-6xl mx-auto px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center"
       >
         {sampleProducts.map((product) => (
           <ProductCard
