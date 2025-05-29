@@ -10,19 +10,13 @@ export default function Header() {
     "text-gray-600 font-medium hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
 
   return (
-    <header className="w-full px-6 py-4 flex justify-between items-center border-b border-gray-200 relative">
+    <header className="sticky top-0 bg-white shadow-md z-50 w-full px-6 py-4 flex justify-between items-center border-b border-gray-200">
       <div className="text-xl font-bold tracking-tight text-gray-900">iVault</div>
 
       {/* Navegación Desktop */}
       <nav className="space-x-6 hidden md:flex">
         <Link href="/" className={linkClass}>
           Inicio
-        </Link>
-        <Link href="#catalogo" className={linkClass}>
-          Catálogo
-        </Link>
-        <Link href="/sobre-nosotros" className={linkClass}>
-          Sobre Nosotros
         </Link>
         <Link href="/contacto" className={linkClass}>
           Contacto
@@ -60,20 +54,6 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
           >
             Inicio
-          </Link>
-          <Link
-            href="#catalogo"
-            className="px-6 py-4 border-b border-gray-200 hover:bg-gray-100"
-            onClick={() => setIsOpen(false)}
-          >
-            Catálogo
-          </Link>
-          <Link
-            href="/sobre-nosotros"
-            className="px-6 py-4 border-b border-gray-200 hover:bg-gray-100"
-            onClick={() => setIsOpen(false)}
-          >
-            Sobre Nosotros
           </Link>
           <Link
             href="/contacto"
