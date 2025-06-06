@@ -26,7 +26,7 @@ export default function ProductModal({ products, onClose }) {
   };
 
   const handleBuyNow = () => {
-    const message = `Hola, estoy interesado en el iPhone ${selectedProduct.name} (${selectedProduct.estado}) de color ${selectedProduct.color}.`;
+    const message = `Hola, estoy interesado en el iPhone ${selectedProduct.name} (${selectedProduct.estado}) de color ${selectedProduct.colorDescription}.`;
     const whatsappUrl = `https://wa.me/51935565755?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
   };
