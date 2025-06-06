@@ -8,57 +8,73 @@ const sampleProducts = [
   {
     id: 1,
     name: "iPhone 14 Pro",
-    color: "Morado",
+    estado: "Excelente",
+    color: "indigo",
+    colorDescription: "Dark Purple",
     almacenamiento: "256 Gb",
-    price: 2800,
-    discountPrice: 2700,
+    price: 3000,
+    discountPrice: 2900,
     stock: 1,
-    image: "/iPhoneMor.png",
+    image: ["/iPhoneMor.png", "/iPhoneMor2.png"],
   },
   {
     id: 2,
     name: "iPhone 14 Pro",
-    color: "Plateado",
+    estado: "Excelente",
+    color: "black",
+    colorDescription: "Black",
     almacenamiento: "256 Gb",
     price: 3000,
     discountPrice: 2900,
-    stock: 0,
-    image: "/iPhonePla.png",
+    stock: 1,
+    image: ["/iPhoneNeg.png", "/iPhoneNeg2.png"],
   },
   {
     id: 3,
-    name: "iPhone 14 Pro Max",
-    color: "Negro",
+    name: "iPhone 14 Pro",
+    estado: "Muy Bueno",
+    color: "White",
+    colorDescription: "Silver",
     almacenamiento: "256 Gb",
-    price: 3300,
-    discountPrice: null,
+    price: 2800,
+    discountPrice: 2700,
     stock: 1,
-    image: "/iPhoneNeg.png",
+    image: ["/iPhonePla.png", "/iPhonePla2.png"],
   },
 ];
 
-export default function ProductGrid() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+// Agrupar productos por estado
+const groupedProducts = sampleProducts.reduce((acc, product) => {
+  if (!acc[product.estado]) acc[product.estado] = [];
+  acc[product.estado].push(product);
+  return acc;
+}, {});
 
-  const handleViewProduct = (product) => setSelectedProduct(product);
-  const handleCloseModal = () => setSelectedProduct(null);
+export default function ProductGrid() {
+  const [selectedProductGroup, setSelectedProductGroup] = useState(null);
+
+  const handleViewProduct = (productGroup) => setSelectedProductGroup(productGroup);
+  const handleCloseModal = () => setSelectedProductGroup(null);
 
   return (
     <>
       <section
         id="catalogo"
-        className="max-w-6xl mx-auto px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center"
+        className="max-w-6xl mx-auto px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 justify-center"
       >
-        {sampleProducts.map((product) => (
+        {Object.entries(groupedProducts).map(([estado, products]) => (
           <ProductCard
-            key={product.id}
-            product={product}
-            onView={handleViewProduct}
+            key={estado}
+            estado={estado}
+            products={products}
+            onView={() => handleViewProduct(products)}
           />
         ))}
       </section>
 
-      <ProductModal product={selectedProduct} onClose={handleCloseModal} />
+      {selectedProductGroup && (
+        <ProductModal products={selectedProductGroup} onClose={handleCloseModal} />
+      )}
     </>
   );
 }

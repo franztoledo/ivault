@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
@@ -18,13 +18,6 @@ export default function Footer() {
           </a>
           <a
             href="#"
-            aria-label="Twitter"
-            className="hover:text-gray-300 transition-transform transform hover:scale-110"
-          >
-            <FontAwesomeIcon icon={faTwitter} className="w-6 h-6" />
-          </a>
-          <a
-            href="#"
             aria-label="Instagram"
             className="hover:text-gray-300 transition-transform transform hover:scale-110"
           >
@@ -32,7 +25,7 @@ export default function Footer() {
           </a>
         </div>
         <p className="text-xs text-gray-500">
-          Síguenos en nuestras redes sociales para estar al tanto de nuestras últimas ofertas y novedades.
+            Síguenos en nuestras redes sociales para estar al tanto de nuestras últimas ofertas y novedades.
         </p>
       </div>
     </footer>
