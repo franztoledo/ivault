@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { FiChevronDown, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import emailjs from "emailjs-com"; // Importa EmailJS
 
 const faqs = [
 	{
@@ -32,32 +33,54 @@ export default function Contacto() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Aquí iría la lógica real de envío
-		setSubmitted(true);
+
+		// Enviar correo con EmailJS
+		emailjs
+			.send(
+				YOUR_SERVICE_ID, // Reemplaza con tu Service ID
+				YOUR_TEMPLATE_ID, // Reemplaza con tu Template ID
+				{
+					nombre: formData.nombre,
+					correo: formData.correo,
+					mensaje: formData.mensaje,
+				},
+				YOUR_USER_ID // Reemplaza con tu User ID
+			)
+			.then(
+				(result) => {
+					alert("Correo enviado correctamente");
+					setSubmitted(true);
+				},
+				(error) => {
+					console.error(error);
+					alert("Error al enviar el correo");
+				}
+			);
 	};
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.5 } // Se activa cuando el 50% de la sección es visible
-    );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+	const [isVisible, setIsVisible] = useState(false);
+	const sectionRef = useRef(null);
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setIsVisible(true);
+				}
+			},
+			{ threshold: 0.5 } // Se activa cuando el 50% de la sección es visible
+		);
 
+		if (sectionRef.current) {
+			observer.observe(sectionRef.current);
+		}
+
+		return () => {
+			if (sectionRef.current) {
+				observer.unobserve(sectionRef.current);
+			}
+		};
+	}, []);
 
 	return (
 		<main className="max-w-5xl mx-auto p-8">
@@ -199,42 +222,45 @@ export default function Contacto() {
 
 			{/* Preguntas frecuentes */}
 			<section className="mt-12">
-        <h2 className="text-3xl font-bold mb-6 text-black">Preguntas frecuentes</h2>
-        {faqs.map(({ q, a }, i) => (
-          <details
-            key={i}
-            className="mb-4 border border-black rounded-lg p-4 shadow-sm transition-transform hover:scale-105 hover:opacity-80"
-          >
-            <summary className="cursor-pointer font-semibold flex items-center justify-between text-black">
-              {q}
-              <FiChevronDown className="text-black" />
-            </summary>
-            <p className="mt-2 text-black">{a}</p>
-          </details>
-        ))}
-      </section>
+				<h2 className="text-3xl font-bold mb-6 text-black">
+					Preguntas frecuentes
+				</h2>
+				{faqs.map(({ q, a }, i) => (
+					<details
+						key={i}
+						className="mb-4 border border-black rounded-lg p-4 shadow-sm transition-transform hover:scale-105 hover:opacity-80"
+					>
+						<summary className="cursor-pointer font-semibold flex items-center justify-between text-black">
+							{q}
+							<FiChevronDown className="text-black" />
+						</summary>
+						<p className="mt-2 text-black">{a}</p>
+					</details>
+				))}
+			</section>
 
 			{/* Redes sociales */}
 			<section
-        ref={sectionRef}
-        className={`mt-12 text-center transition-opacity duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
-          El iPhone que quieres, con la confianza que mereces
-        </h2>
-        <p className="text-lg text-gray-600 mb-8">
-          Encuentra el iPhone perfecto para ti, con la seguridad de una compra confiable
-        </p>
-        <div className="flex justify-center">
-          <img
-            src="/ivaultnobk.png" // filepath: c:\Proyectos\ivault\public\ivaultnobk.png
-            alt="iVault Logo"
-            className="w-48 h-48 object-contain"
-          />
-        </div>
-      </section>
+				ref={sectionRef}
+				className={`mt-12 text-center transition-opacity duration-1000 ${
+					isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+				}`}
+			>
+				<h2 className="text-4xl font-bold text-gray-800 mb-4">
+					El iPhone que quieres, con la confianza que mereces
+				</h2>
+				<p className="text-lg text-gray-600 mb-8">
+					Encuentra el iPhone perfecto para ti, con la seguridad de una compra
+					confiable.
+				</p>
+				<div className="flex justify-center">
+					<img
+						src="/ivaultnobk.png" // filepath: c:\Proyectos\ivault\public\ivaultnobk.png
+						alt="iVault Logo"
+						className="w-48 h-48 object-contain"
+					/>
+				</div>
+			</section>
 		</main>
 	);
 }
