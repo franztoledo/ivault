@@ -26,6 +26,8 @@ export default function Contacto() {
 		mensaje: "",
 	});
 	const [submitted, setSubmitted] = useState(false);
+	const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+	const [modalMessage, setModalMessage] = useState(""); // Estado para el mensaje del modal
 
 	const handleChange = (e) => {
 		setFormData((fd) => ({ ...fd, [e.target.name]: e.target.value }));
@@ -34,29 +36,38 @@ export default function Contacto() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		// Validar que todos los campos estén llenos
+		if (!formData.nombre || !formData.correo || !formData.mensaje) {
+			setModalMessage("Por favor, completa todos los campos obligatorios.");
+			setShowModal(true);
+			return;
+		}
+
 		// Enviar correo con EmailJS
 		emailjs
 			.send(
-				YOUR_SERVICE_ID, // Reemplaza con tu Service ID
-				YOUR_TEMPLATE_ID, // Reemplaza con tu Template ID
-				{
-					nombre: formData.nombre,
-					correo: formData.correo,
-					mensaje: formData.mensaje,
-				},
-				YOUR_USER_ID // Reemplaza con tu User ID
+			process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, // Service ID desde variables de entorno
+			process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, // Template ID desde variables de entorno
+			{
+				nombre: formData.nombre,
+				correo: formData.correo,
+				mensaje: formData.mensaje,
+			},
+			process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY // Public Key desde variables de entorno
 			)
 			.then(
-				(result) => {
-					alert("Correo enviado correctamente");
-					setSubmitted(true);
-				},
-				(error) => {
-					console.error(error);
-					alert("Error al enviar el correo");
-				}
+			(result) => {
+				setModalMessage("¡Correo enviado correctamente!");
+				setShowModal(true);
+				setSubmitted(true);
+			},
+			(error) => {
+				console.error(error);
+				setModalMessage("Hubo un error al enviar el correo. Inténtalo nuevamente.");
+				setShowModal(true);
+			}
 			);
-	};
+		};
 
 	const [isVisible, setIsVisible] = useState(false);
 	const sectionRef = useRef(null);
@@ -190,10 +201,10 @@ export default function Contacto() {
 							<p className="text-black">
 								Correo:{" "}
 								<a
-									href="mailto:contacto@ivault.com"
+									href="mailto:ivault.imports@gmail.com"
 									className="text-black underline hover:text-gray-800 transition"
 								>
-									contacto@ivault.com
+									ivault.imports@gmail.com
 								</a>
 							</p>
 						</div>
@@ -220,6 +231,20 @@ export default function Contacto() {
 				</div>
 			</div>
 
+			{/* Modal */}
+		{showModal && (
+			<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+			<div className="bg-white p-6 rounded-lg shadow-lg text-center">
+				<p className="text-lg font-semibold text-black">{modalMessage}</p>
+				<button
+				onClick={() => setShowModal(false)}
+				className="mt-4 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+				>
+				Cerrar
+				</button>
+			</div>
+			</div>
+		)}
 			{/* Preguntas frecuentes */}
 			<section className="mt-12">
 				<h2 className="text-3xl font-bold mb-6 text-black">
@@ -260,6 +285,7 @@ export default function Contacto() {
 						className="w-48 h-48 object-contain"
 					/>
 				</div>
+				
 			</section>
 		</main>
 	);
